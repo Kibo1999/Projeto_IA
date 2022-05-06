@@ -22,6 +22,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
     }
 
     public static MummyMazeState readInitialStateFromFile(File file) {
+
         return null;
     }
 
