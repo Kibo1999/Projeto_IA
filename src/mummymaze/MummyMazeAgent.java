@@ -3,6 +3,7 @@ package mummymaze;
 import agent.Agent;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MummyMazeAgent extends Agent<MummyMazeState> {
@@ -12,6 +13,11 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         super(environment);
         // ola mundo
         // ola jose
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+        }
+
     }
 
     public static MummyMazeState readInitialStateFromFile(File file) {
