@@ -18,6 +18,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
             System.out.println(i);
         }
 
+        // teste 3
     }
 
     public static MummyMazeState readInitialStateFromFile(File file) {
