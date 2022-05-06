@@ -2,6 +2,8 @@ package mummymaze;
 
 import agent.Agent;
 import eightpuzzle.EightPuzzleState;
+import eightpuzzle.HeuristicTileDistance;
+import eightpuzzle.HeuristicTilesOutOfPlace;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,18 +12,21 @@ import java.util.List;
 
 public class MummyMazeAgent extends Agent<MummyMazeState> {
 
+    protected static MummyMazeState initialEnvironment;
 
     public MummyMazeAgent(MummyMazeState environment) {
         super(environment);
-        // ola mundo
-        // ola jose
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-        }
-
-        // teste 3
+        initialEnvironment = (MummyMazeState) environment.clone();
+        //heuristics.add(new HeuristicTileDistance());
+        //heuristics.add(new HeuristicTilesOutOfPlace());
+        //heuristic = heuristics.get(0);
     }
+
+    public MummyMazeState resetEnvironment(){
+        environment = (MummyMazeState) initialEnvironment.clone();
+        return environment;
+    }
+
 
     public static MummyMazeState readInitialStateFromFile(File file) throws FileNotFoundException {
         java.util.Scanner scanner = new java.util.Scanner(file);
@@ -32,8 +37,12 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
             matrix[i] = scanner.nextLine().toCharArray();
         }
         initialEnvironment = new MummyMazeState(matrix);
-        resetEnvironment();
-        return environment;
+
+        //need to uncomment later to save initial state
+        //resetEnvironment();
+        //return environment;
+
+        return initialEnvironment;
     }
 
     public List<String> getTurns() {

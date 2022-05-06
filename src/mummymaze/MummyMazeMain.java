@@ -9,11 +9,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MummyMazeMain {
-    private static String FILE_PATH = "./nivel";
+    private static String FILE_PATH = "./Niveis/nivel11.txt";
 
     public static void main(String[] args) throws IOException {
         // read the initial state from a file
         MummyMazeState state = MummyMazeAgent.readInitialStateFromFile(new File(FILE_PATH));
+        //DEBUG: Shows matrix
+        state.showState();
+
         // instantiate a new Agent
         MummyMazeAgent agent = new MummyMazeAgent(state);
         // instanciar um novo Problem
