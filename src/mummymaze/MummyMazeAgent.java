@@ -12,6 +12,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         super(environment);
         // ola mundo
         // ola jose
+        // teste 3 
     }
 
     public static MummyMazeState readInitialStateFromFile(File file) {
