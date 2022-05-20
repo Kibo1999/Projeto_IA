@@ -2,13 +2,12 @@ package mummymaze;
 
 import agent.Action;
 import agent.State;
-import eightpuzzle.EightPuzzleState;
 
 public class MummyMazeState extends State implements Cloneable{
 
     private final char[][] matrix;
-    private int lineBlank;
-    private int columnBlank;
+    private int lineAgent;
+    private int columnAgent;
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix.length];
@@ -17,8 +16,8 @@ public class MummyMazeState extends State implements Cloneable{
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
                 if (this.matrix[i][j] == 0) {
-                    lineBlank = i;
-                    columnBlank = j;
+                    lineAgent = i;
+                    columnAgent = j;
                 }
             }
         }
@@ -51,4 +50,60 @@ public class MummyMazeState extends State implements Cloneable{
     public boolean equals(Object obj) {
         return false;
     }
+
+    public boolean canMoveUp() {
+        return lineAgent <= 1 && matrix[lineAgent - 1][columnAgent] != '-';
+    }
+
+    public boolean canMoveRight() {
+        return columnAgent <= matrix[lineAgent].length - 1 && matrix[lineAgent][columnAgent + 1] != '|';
+
+    }
+
+    public boolean canMoveDown() {
+        return lineAgent >= matrix.length - 2 && matrix[lineAgent + 1][columnAgent] != '-';
+
+    }
+
+    public boolean canMoveLeft() {
+        return columnAgent <= 1 && matrix[lineAgent][columnAgent -1] != '|';
+    }
+
+    public boolean canStay() {return true;}
+
+    /*
+     * In the next four methods we don't verify if the actions are valid.
+     * This is done in method executeActions in class EightPuzzleProblem.
+     * Doing the verification in these methods would imply that a clone of the
+     * state was created whether the operation could be executed or not.
+     */
+    public void moveUp() {
+        matrix[lineAgent][columnAgent] = matrix[lineAgent - 2][columnAgent];
+        lineAgent -= 2;
+        matrix[lineAgent][columnAgent] = 'H';
+    }
+
+    public void moveRight() {
+        matrix[lineAgent][columnAgent] = matrix[lineAgent][columnAgent + 2];
+        columnAgent += 2;
+        matrix[lineAgent][columnAgent] = 'H';
+    }
+
+    public void moveDown() {
+        matrix[lineAgent][columnAgent] = matrix[lineAgent + 2][columnAgent];
+        lineAgent += 2;
+        matrix[lineAgent][columnAgent] = 'H';
+    }
+
+    public void moveLeft() {
+
+        matrix[lineAgent][columnAgent] = matrix[lineAgent][columnAgent - 2];
+        columnAgent-=2;
+        matrix[lineAgent][columnAgent] = 'H';
+    }
+
+    public void stay(){
+
+    }
+
 }
