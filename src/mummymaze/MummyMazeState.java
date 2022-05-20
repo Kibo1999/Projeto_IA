@@ -106,4 +106,29 @@ public class MummyMazeState extends State implements Cloneable{
 
     }
 
+    public double computeDistanceToGoal(MummyMazeState finalState) {
+
+        double distance = 0;
+        int[] hero = new int[2];
+        int[] goal = new int[2];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] == 'H') {
+                    hero[0] = i;
+                    hero[1] = j;
+                }
+                if (matrix[i][j] == 'S') {
+                    goal[0] = i;
+                    goal[1] = j;
+
+                }
+                distance += 2;//calculate euclidean distance √[ (x2 – x1)2 + (y2 – y1)2;
+            }
+
+        }
+
+
+        return distance;
+    }
 }
