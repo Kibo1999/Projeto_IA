@@ -2,6 +2,9 @@ package eightpuzzle;
 
 import agent.Action;
 import agent.State;
+import mummymaze.MummyMazeEvent;
+import mummymaze.MummyMazeListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -185,4 +188,5 @@ public class EightPuzzleState extends State implements Cloneable {
             listener.puzzleChanged(null);
         }
     }
+
 }

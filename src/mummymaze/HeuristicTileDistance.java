@@ -3,10 +3,10 @@ package mummymaze;
 import eightpuzzle.EightPuzzleState;
 
 public class HeuristicTileDistance {
-    @Override
+   /* @Override
     public double compute(MummyMazeState state){
         return state.computeTileDistances(problem.getGoalState());
-    }
+    }*/
 
     @Override
     public String toString(){

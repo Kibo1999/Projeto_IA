@@ -19,10 +19,14 @@ public class MummyMazeMain {
 
         // instantiate a new Agent
         MummyMazeAgent agent = new MummyMazeAgent(state);
+        System.out.println("new agent created");
         // instanciar um novo Problem
         MummyMazeProblem problem = new MummyMazeProblem(state);
+        System.out.println("new problem created");
         // execute the search algorithm to find a solution
+        System.out.println("trying to solve problem");
         agent.solveProblem(problem);
+        System.out.println("problem solved");
         // execute the solution (which will generate a list of strings -- the turns)
         agent.executeSolution();
         // get the list of turns and the cost

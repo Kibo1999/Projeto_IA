@@ -3,6 +3,8 @@ package mummymaze;
 import agent.Action;
 import agent.State;
 
+import java.util.Arrays;
+
 public class MummyMazeState extends State implements Cloneable{
 
     private final char[][] matrix;
@@ -10,12 +12,12 @@ public class MummyMazeState extends State implements Cloneable{
     private int columnAgent;
 
     public MummyMazeState(char[][] matrix) {
-        this.matrix = new char[matrix.length][matrix.length];
+        this.matrix = new char[matrix.length][matrix[0].length];
 
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
+            for (int j = 0; j < matrix[i].length; j++) {
                 this.matrix[i][j] = matrix[i][j];
-                if (this.matrix[i][j] == 0) {
+                if (this.matrix[i][j] == 'H') {
                     lineAgent = i;
                     columnAgent = j;
                 }
@@ -38,12 +40,12 @@ public class MummyMazeState extends State implements Cloneable{
 
     @Override
     public void executeAction(Action action) {
-
+        action.execute(this);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return 97 * 7 + Arrays.deepHashCode(this.matrix);
     }
 
     @Override
@@ -52,21 +54,21 @@ public class MummyMazeState extends State implements Cloneable{
     }
 
     public boolean canMoveUp() {
-        return lineAgent <= 1 && matrix[lineAgent - 1][columnAgent] != '-';
+        return lineAgent > 1 && matrix[lineAgent - 1][columnAgent] != '-';
     }
 
     public boolean canMoveRight() {
-        return columnAgent <= matrix[lineAgent].length - 1 && matrix[lineAgent][columnAgent + 1] != '|';
+        return columnAgent != matrix[lineAgent].length - 2 && matrix[lineAgent][columnAgent + 1] != '|';
 
     }
 
     public boolean canMoveDown() {
-        return lineAgent >= matrix.length - 2 && matrix[lineAgent + 1][columnAgent] != '-';
+        return lineAgent != matrix.length - 2 && matrix[lineAgent + 1][columnAgent] != '-';
 
     }
 
     public boolean canMoveLeft() {
-        return columnAgent <= 1 && matrix[lineAgent][columnAgent -1] != '|';
+        return columnAgent != 0 && matrix[lineAgent][columnAgent -1] != '|';
     }
 
     public boolean canStay() {return true;}
@@ -96,9 +98,8 @@ public class MummyMazeState extends State implements Cloneable{
     }
 
     public void moveLeft() {
-
         matrix[lineAgent][columnAgent] = matrix[lineAgent][columnAgent - 2];
-        columnAgent-=2;
+        columnAgent = columnAgent - 2;
         matrix[lineAgent][columnAgent] = 'H';
     }
 
@@ -108,27 +109,23 @@ public class MummyMazeState extends State implements Cloneable{
 
     public double computeDistanceToGoal(MummyMazeState finalState) {
 
-        double distance = 0;
-        int[] hero = new int[2];
         int[] goal = new int[2];
-
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                if (matrix[i][j] == 'H') {
-                    hero[0] = i;
-                    hero[1] = j;
-                }
+
                 if (matrix[i][j] == 'S') {
                     goal[0] = i;
                     goal[1] = j;
-
+                    break;
                 }
-                distance += 2;//calculate euclidean distance √[ (x2 – x1)2 + (y2 – y1)2;
+                //calculate euclidean distance √[ (x2 – x1)2 + (y2 – y1)2;
+
             }
-
         }
-
-
-        return distance;
+        int lineDif = lineAgent > goal[0] ? lineAgent - goal[0] : goal[0] - lineAgent;
+        int colDif = columnAgent > goal[1] ? columnAgent - goal[1] : goal[1] - columnAgent;
+        //A distancia eucliadiana daria uma linha a direito, e no caso o que queremos pode ser um L.
+        //Como está agora, simplesmente vê a diferença entre a linha e a coluna do agente vs a da saída, que é o que queremos
+        return lineDif + colDif;
     }
 }
