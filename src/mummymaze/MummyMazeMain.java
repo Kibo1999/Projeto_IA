@@ -30,9 +30,11 @@ public class MummyMazeMain {
         // execute the solution (which will generate a list of strings -- the turns)
         agent.executeSolution();
         // get the list of turns and the cost
+        System.out.println("solution executed");
         List<String> turns = agent.getTurns();
         double cost = agent.getSolutionCost();
         // show the list of turns in the GUI
+        System.out.println("showing the solution visually");
         SolutionPanel.showSolution(turns, cost);
     }
 }

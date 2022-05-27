@@ -39,7 +39,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     @Override
     public boolean isGoal(MummyMazeState state) {
 
-        return false;
+        return state.nearExit();
     }
 
     public void setAction(mummymaze.ActionDown actionDown) {

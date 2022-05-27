@@ -68,7 +68,7 @@ public class MummyMazeState extends State implements Cloneable{
     }
 
     public boolean canMoveLeft() {
-        return columnAgent != 0 && matrix[lineAgent][columnAgent -1] != '|';
+        return columnAgent >= 2 && matrix[lineAgent][columnAgent - 1] != '|';
     }
 
     public boolean canStay() {return true;}
@@ -127,5 +127,9 @@ public class MummyMazeState extends State implements Cloneable{
         //A distancia eucliadiana daria uma linha a direito, e no caso o que queremos pode ser um L.
         //Como está agora, simplesmente vê a diferença entre a linha e a coluna do agente vs a da saída, que é o que queremos
         return lineDif + colDif;
+    }
+
+    public boolean nearExit(){
+        return matrix[lineAgent+1][columnAgent] == 'S' || matrix[lineAgent-1][columnAgent] == 'S' || matrix[lineAgent][columnAgent+1] == 'S' || matrix[lineAgent][columnAgent-1] == 'S';
     }
 }
