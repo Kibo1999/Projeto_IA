@@ -15,7 +15,7 @@ public class SolutionPanel extends JFrame{
 //	public static void main(String[] args) {
 //		// TODO Auto-generated method stub
 //		LinkedList<String> lista = new LinkedList<String>();
-//		String estado = 	"             \n" +		
+//		String estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" . . . . . H \n" +
@@ -29,10 +29,10 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	"             \n" +		
+//		estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
-//		" . . . . H   \n" +
+//		" . . . . H . \n" +
 //		"     -       \n" +
 //		" . . . .|. . \n" +
 //		"       -   - \n" +
@@ -43,7 +43,7 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	"             \n" +		
+//		estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" . . . H . . \n" +
@@ -57,7 +57,7 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	"             \n" +		
+//		estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" . . H . .   \n" +
@@ -71,7 +71,7 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	"             \n" +		
+//		estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" . H . . . . \n" +
@@ -85,7 +85,7 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	"             \n" +		
+//		estado = 	"             \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" H . . . . . \n" +
@@ -99,7 +99,7 @@ public class SolutionPanel extends JFrame{
 //		" . . . . . . \n" +
 //		" S           \n";
 //		lista.add(estado);
-//		estado = 	" S            \n" +		
+//		estado = 	" S            \n" +
 //		" . . . . .|. \n" +
 //		"     -       \n" +
 //		" . . . . . . \n" +
@@ -115,7 +115,7 @@ public class SolutionPanel extends JFrame{
 //		lista.add(estado);
 //		showSolution(lista,10);
 //	}
-	
+
 	private SolutionPanel(){
 		super("Show solution");
 		gameArea = new GameArea();
@@ -128,11 +128,11 @@ public class SolutionPanel extends JFrame{
 //            }
 //        });
 	}
-	
+
 	public static void showSolution(final List<String> states, final double solutionCost){
 		final SolutionPanel p = new SolutionPanel();
 		p.setVisible(true);
-		p.pack();		
+		p.pack();
 		Thread t = new Thread(){
             public void run(){
             	p.setSolutionCost(solutionCost);
@@ -169,7 +169,7 @@ public class SolutionPanel extends JFrame{
 		t.start();
 	}
 
-	
+
 	private void setState(String state){
 		gameArea.setState(state);
 	}

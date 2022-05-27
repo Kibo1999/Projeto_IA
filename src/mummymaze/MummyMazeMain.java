@@ -9,13 +9,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MummyMazeMain {
-    private static String FILE_PATH = "./Niveis/nivel11.txt";
+    private static String FILE_PATH = "./Niveis/nivel_so_com_heroi.txt";
 
     public static void main(String[] args) throws IOException {
         // read the initial state from a file
         MummyMazeState state = MummyMazeAgent.readInitialStateFromFile(new File(FILE_PATH));
         //DEBUG: Shows matrix
-        state.showState();
+        //state.showState();
+        System.out.println(state);
 
         // instantiate a new Agent
         MummyMazeAgent agent = new MummyMazeAgent(state);
@@ -31,10 +32,11 @@ public class MummyMazeMain {
         agent.executeSolution();
         // get the list of turns and the cost
         System.out.println("solution executed");
-        List<String> turns = agent.getTurns();
+        List<String> turns = agent.getTurnos();
         double cost = agent.getSolutionCost();
         // show the list of turns in the GUI
         System.out.println("showing the solution visually");
         SolutionPanel.showSolution(turns, cost);
+        System.out.println("solution shown");
     }
 }

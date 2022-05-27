@@ -1,23 +1,19 @@
 package mummymaze;
 
 import agent.Agent;
-import eightpuzzle.EightPuzzleState;
-import eightpuzzle.HeuristicTileDistance;
-import eightpuzzle.HeuristicTilesOutOfPlace;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MummyMazeAgent extends Agent<MummyMazeState> {
 
     protected static MummyMazeState initialEnvironment;
 
+
     public MummyMazeAgent(MummyMazeState environment) {
         super(environment);
         initialEnvironment = (MummyMazeState) environment.clone();
-        heuristics.add(new HeuristicTileDistance());
+        heuristics.add(new HeuristicTilesToGoal());
         //heuristics.add(new HeuristicTilesOutOfPlace());
         //heuristic = heuristics.get(0);
     }
@@ -45,11 +41,4 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         return initialEnvironment;
     }
 
-    public List<String> getTurns() {
-        return null;
-    }
-
-    public double getSolutionCost() {
-        return 0;
-    }
 }

@@ -99,7 +99,7 @@ public class MummyMazeState extends State implements Cloneable{
 
     public void moveLeft() {
         matrix[lineAgent][columnAgent] = matrix[lineAgent][columnAgent - 2];
-        columnAgent = columnAgent - 2;
+        columnAgent -= 2;
         matrix[lineAgent][columnAgent] = 'H';
     }
 
@@ -107,11 +107,11 @@ public class MummyMazeState extends State implements Cloneable{
 
     }
 
-    public double computeDistanceToGoal(MummyMazeState finalState) {
+    public double computeDistanceToGoal() {
 
         int[] goal = new int[2];
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
+            for (int j = 0; j < matrix[i].length; j++) {
 
                 if (matrix[i][j] == 'S') {
                     goal[0] = i;
@@ -131,5 +131,20 @@ public class MummyMazeState extends State implements Cloneable{
 
     public boolean nearExit(){
         return matrix[lineAgent+1][columnAgent] == 'S' || matrix[lineAgent-1][columnAgent] == 'S' || matrix[lineAgent][columnAgent+1] == 'S' || matrix[lineAgent][columnAgent-1] == 'S';
+    }
+
+
+    @Override
+    public String toString() {
+        String stateString = "";
+
+        for (char[] line : matrix) {
+            for (char letter : line) {
+                stateString += letter + " ";
+            }
+            stateString += "\n";
+        }
+
+        return stateString;
     }
 }

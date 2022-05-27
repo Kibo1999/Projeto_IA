@@ -1,6 +1,8 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import searchmethods.*;
 
 public class Agent<E extends State> {
@@ -11,6 +13,7 @@ public class Agent<E extends State> {
     protected ArrayList<Heuristic> heuristics;
     protected Heuristic heuristic;
     protected Solution solution;
+    protected LinkedList<String> turnos;
 
     public Agent(E environment) {
         this.environment = environment;
@@ -26,6 +29,7 @@ public class Agent<E extends State> {
         searchMethods.add(new IDAStarSearch());
         searchMethod = searchMethods.get(0);
         heuristics = new ArrayList<>();
+        turnos = new LinkedList<>();
     }
 
     public Solution solveProblem(Problem problem) {
@@ -37,10 +41,20 @@ public class Agent<E extends State> {
         return solution;
     }
 
-    public void executeSolution() {    
+    public void executeSolution() {
         for(Action action : solution.getActions()){
             environment.executeAction(action);
+            turnos.add(environment.toString());
         }
+
+        System.out.println("Showing what is on 'Turnos'");
+        int i = 1;
+        for (String turno:turnos) {
+            System.out.println("posicao " + i + " de turnos");
+            i++;
+            System.out.println(turno);
+        }
+
     }
 
     public boolean hasSolution() {
@@ -102,5 +116,13 @@ public class Agent<E extends State> {
         sb.append("Num of generated nodes: " + searchMethod.getStatistics().numGeneratedNodes+ "\n");
 
         return sb.toString();
+    }
+
+    public LinkedList<String> getTurnos() {
+        return turnos;
+    }
+
+    public double getSolutionCost(){
+        return solution.getCost();
     }
 }
