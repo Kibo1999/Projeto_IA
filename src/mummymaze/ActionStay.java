@@ -9,13 +9,13 @@ public class ActionStay extends Action<MummyMazeState> {
     }
 
     @Override
-    public void execute(MummyMazeState state) {
-        state.stay();
+    public void execute(MummyMazeState state, Cell character) {
+        state.stay(character);
         state.setAction(this);
     }
 
     @Override
-    public boolean isValid(MummyMazeState state) {
-        return state.canStay();
+    public boolean isValid(MummyMazeState state, Cell character) {
+        return state.canStay(character);
     }
 }

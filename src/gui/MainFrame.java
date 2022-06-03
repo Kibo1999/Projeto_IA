@@ -2,9 +2,9 @@ package gui;
 
 import agent.Heuristic;
 import agent.Solution;
-import eightpuzzle.EightPuzzleAgent;
+/*import eightpuzzle.EightPuzzleAgent;
 import eightpuzzle.EightPuzzleProblem;
-import eightpuzzle.EightPuzzleState;
+import eightpuzzle.EightPuzzleState;*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -32,7 +32,7 @@ import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
 
 public class MainFrame extends JFrame {
-
+/*
     private int[][] initialMatrix = {{8, 7, 6}, {5, 4, 3}, {2, 1, 0}};
     private EightPuzzleAgent agent = new EightPuzzleAgent(new EightPuzzleState(initialMatrix));
     private JComboBox comboBoxSearchMethods;
@@ -361,4 +361,6 @@ class TextFieldSearchParameter_KeyAdapter implements KeyListener {
             e.consume();
         }
     }
+
+ */
 }

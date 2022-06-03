@@ -27,9 +27,9 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     public LinkedList<MummyMazeState> executeAction(MummyMazeState state) {
         LinkedList<MummyMazeState> successors = new LinkedList<>();
         for (Action a: actions){
-            if (a.isValid(state)){
+            if (a.isValid(state, state.getHero())){
                 MummyMazeState newState = (MummyMazeState) state.clone();
-                a.execute(newState);
+                a.execute(newState, newState.getHero());
                 successors.add(newState);
             }
         }
@@ -38,7 +38,6 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
     @Override
     public boolean isGoal(MummyMazeState state) {
-
         return state.nearExit();
     }
 

@@ -1,8 +1,8 @@
 package mummymaze;
 
 public abstract class Enemy {
-    private Cell cell;
-    private int moves;
+    protected Cell cell;
+    protected int moves;
 
     public Enemy(Cell cell, int moves) {
         this.cell = cell;
@@ -21,5 +21,5 @@ public abstract class Enemy {
         return moves;
     }
 
-    public abstract void move(Cell heroCell);
+    public abstract void move(MummyMazeState state, Cell heroCell);
 }

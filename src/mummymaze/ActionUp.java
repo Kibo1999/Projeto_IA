@@ -9,13 +9,13 @@ public class ActionUp extends Action<MummyMazeState> {
     }
 
     @Override
-    public void execute(MummyMazeState state) {
-        state.moveUp();
+    public void execute(MummyMazeState state, Cell character) {
+        state.moveUp(character);
         state.setAction(this);
     }
 
     @Override
-    public boolean isValid(MummyMazeState state) {
-        return state.canMoveUp();
+    public boolean isValid(MummyMazeState state, Cell character) {
+        return state.canMoveUp(character);
     }
 }

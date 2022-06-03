@@ -10,7 +10,8 @@ public class MummyMazeState extends State implements Cloneable{
 
     private final char[][] matrix;
     private Cell hero;
-    private ArrayList<Cell> enemies;
+    private ArrayList<Enemy> enemies;
+    private boolean isHeroDead;
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix[0].length];
@@ -19,26 +20,37 @@ public class MummyMazeState extends State implements Cloneable{
             for (int j = 0; j < matrix[i].length; j++) {
                 switch(matrix[i][j]) {
                     case 'H' :
-                        hero = new Cell(i,j);
+                        hero = new Cell(i,j, 'H');
                         break;
                     case 'M' :
-                        enemies.add(new Cell(i,j));
+                        enemies.add(new WhiteMummy(new Cell(i,j,'M')));
                         break;
                     case 'V' :
-                        enemies.add(new Cell(i,j));
+                        //enemies.add(new Cell(i,j,'V'));
                         break;
                     case 'E' :
-                        enemies.add(new Cell(i,j));
+                        //enemies.add(new Cell(i,j,'E'));
                         break;
                     default:
                         this.matrix[i][j] = matrix[i][j];
                 }
             }
         }
+        isHeroDead = false;
+    }
+
+    public MummyMazeState(MummyMazeState m){
+        this(m.matrix);
+        this.enemies = new ArrayList<>();
+        for (Enemy enemy: m.enemies) {
+            this.enemies.add(enemy);
+
+        }
+        this.hero = (Cell) m.hero.clone();
     }
 
     public Object clone() {
-        return new MummyMazeState(matrix);
+        return new MummyMazeState(this);
     }
 
     public void showState() {
@@ -52,7 +64,33 @@ public class MummyMazeState extends State implements Cloneable{
 
     @Override
     public void executeAction(Action action) {
-        action.execute(this);
+        //hero moves ONLY if he is alive
+        action.execute(this,hero);
+
+
+        //enemies move after the hero does
+        for (Enemy enemy:enemies) {
+            enemy.move(this,hero);
+        }
+
+        atualizarMatriz();
+        checkHeroDead();
+    }
+
+    private void checkHeroDead() {
+        for (Enemy enemy: enemies) {
+            if (enemy.getCell().getLine() == hero.getLine() && enemy.getCell().getCol() == hero.getCol()){
+                isHeroDead = true;
+                break;
+            }
+        }
+    }
+
+    private void atualizarMatriz() {
+        matrix[hero.getLine()][hero.getCol()] = 'H';
+        for (Enemy enemy:enemies) {
+            matrix[enemy.getCell().getLine()][enemy.getCell().getCol()] = enemy.getCell().getCharacter();
+        }
     }
 
     @Override
@@ -65,28 +103,44 @@ public class MummyMazeState extends State implements Cloneable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MummyMazeState state = (MummyMazeState) o;
-        return hero.getLine() == state.getHero().getLine() && hero.getCol() == state.getHero().getCol();
+        return Arrays.deepEquals(this.matrix, state.matrix);
     }
 
-    public boolean canMoveUp() {
-        return hero.getLine() > 1 && matrix[hero.getLine() - 1][hero.getCol()] != '-';
+    public boolean canMoveUp(Cell character) {
+        if (character == hero && isHeroDead){
+            return false;
+        }
+        return character.getLine() > 1 && matrix[character.getLine() - 1][character.getCol()] != '-';
     }
 
-    public boolean canMoveRight() {
-        return hero.getCol() < matrix[hero.getLine()].length - 2 && matrix[hero.getLine()][hero.getCol() + 1] != '|';
+    public boolean canMoveRight(Cell character) {
+        if (character == hero && isHeroDead){
+            return false;
+        }
+        return character.getCol() < matrix[character.getLine()].length - 2 && matrix[character.getLine()][character.getCol() + 1] != '|';
 
     }
 
-    public boolean canMoveDown() {
-        return hero.getLine() < matrix.length - 2 && matrix[hero.getLine() + 1][hero.getCol()] != '-';
-
+    public boolean canMoveDown(Cell character) {
+        if (character == hero && isHeroDead){
+            return false;
+        }
+        return character.getLine() < matrix.length - 2 && matrix[character.getLine() + 1][character.getCol()] != '-';
     }
 
-    public boolean canMoveLeft() {
-        return hero.getCol() > 1 && matrix[hero.getLine()][hero.getCol() - 1] != '|';
+    public boolean canMoveLeft(Cell character) {
+        if (character == hero && isHeroDead){
+            return false;
+        }
+        return character.getCol() > 1 && matrix[character.getLine()][character.getCol() - 1] != '|';
     }
 
-    public boolean canStay() {return true;}
+    public boolean canStay(Cell character) {
+        if (character == hero && isHeroDead){
+            return false;
+        }
+        return true;
+    }
 
     /*
      * In the next four methods we don't verify if the actions are valid.
@@ -94,37 +148,34 @@ public class MummyMazeState extends State implements Cloneable{
      * Doing the verification in these methods would imply that a clone of the
      * state was created whether the operation could be executed or not.
      */
-    public void moveUp() {
+    public void moveUp(Cell character) {
         matrix[hero.getLine()][hero.getCol()] = matrix[hero.getLine() - 2][hero.getCol()];
         hero.setLine(-2);
-        matrix[hero.getLine()][hero.getCol()] = 'H';
     }
 
-    public void moveRight() {
+    public void moveRight(Cell character) {
         matrix[hero.getLine()][hero.getCol()] = matrix[hero.getLine()][hero.getCol() + 2];
         hero.setCol(2);
-        matrix[hero.getLine()][hero.getCol()] = 'H';
     }
 
-    public void moveDown() {
+    public void moveDown(Cell character) {
         matrix[hero.getLine()][hero.getCol()] = matrix[hero.getLine() + 2][hero.getCol()];
         hero.setLine(2);
-        matrix[hero.getLine()][hero.getCol()] = 'H';
     }
 
-    public void moveLeft() {
+    public void moveLeft(Cell character) {
         matrix[hero.getLine()][hero.getCol()] = matrix[hero.getLine()][hero.getCol() - 2];
         hero.setCol(-2);
-        matrix[hero.getLine()][hero.getCol()] = 'H';
     }
 
-    public void stay(){
+    public void stay(Cell character){
 
     }
 
     public double computeDistanceToGoal() {
 
         int[] goal = new int[2];
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
 

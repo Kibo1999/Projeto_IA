@@ -1,12 +1,12 @@
 package gui;
 
-import eightpuzzle.EightPuzzleEvent;
+/*import eightpuzzle.EightPuzzleEvent;
 import eightpuzzle.EightPuzzleListener;
 import eightpuzzle.EightPuzzleState;
 import javax.swing.table.AbstractTableModel;
-
-public class PuzzleTableModel extends AbstractTableModel implements EightPuzzleListener{
-
+*/
+public class PuzzleTableModel /*extends AbstractTableModel implements EightPuzzleListener*/{
+/*
     private EightPuzzleState puzzle;
 
     public PuzzleTableModel(EightPuzzleState puzzle) {
@@ -50,4 +50,6 @@ public class PuzzleTableModel extends AbstractTableModel implements EightPuzzleL
         puzzle.addListener(this);
         fireTableDataChanged();
     }
+
+ */
 }
