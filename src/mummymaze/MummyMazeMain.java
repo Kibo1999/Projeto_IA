@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MummyMazeMain {
-    private static String FILE_PATH = "./Niveis/nivel_so_com_heroi.txt";
+    private static String FILE_PATH = "./Niveis/nivel_so_com_heroi_e_paredes.txt";
 
     public static void main(String[] args) throws IOException {
         // read the initial state from a file
@@ -34,6 +34,7 @@ public class MummyMazeMain {
         System.out.println("solution executed");
         List<String> turns = agent.getTurnos();
         double cost = agent.getSolutionCost();
+        System.out.println("Showing the final matrix : " + state);
         // show the list of turns in the GUI
         System.out.println("showing the solution visually");
         SolutionPanel.showSolution(turns, cost);

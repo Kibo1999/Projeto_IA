@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 public class GameArea extends JPanel {
-	
+
 	private Image trap;
 	private Image key;
 	private Image stairsDown;
@@ -28,21 +28,21 @@ public class GameArea extends JPanel {
 	private Image doorHorizontalClosed;
 	private Image doorVerticalOpen;
 	private Image doorVerticalClosed;
-	
+
 	private int xStart = 63;
 	private int yStart = 79;
-	
+
 	private String state = null;
 	private boolean showSolutionCost;
 	private double solutionCost;
-	
+
 	public GameArea(){
 		super();
 		setPreferredSize(new Dimension(486,474));
 		loadImages();
 		showSolutionCost = true;
 	}
-	
+
 	private void loadImages(){
 		trap = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/armadilha.png"));
 		key = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/chave.png"));
@@ -62,19 +62,19 @@ public class GameArea extends JPanel {
 		doorVerticalOpen = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/portaVerticalAberta.png"));
 		doorVerticalClosed = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sprites/portaVerticalFechada.png"));
 	}
-	
+
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
+
 		g.drawImage(beackground,0,0,this);
-		
+
 		if(state == null){
 			return;
 		}
 		String[] splitString = (state.split("\\n"));
-		
+
 		for(int i = 0; i < 13; i++) {
-			for(int j = 0; j < 13; j++) {				
+			for(int j = 0; j < 13; j++) {
 				switch(splitString[i].charAt(j)) {
 					case '-' : g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
@@ -98,12 +98,12 @@ public class GameArea extends JPanel {
 			g.setColor(Color.LIGHT_GRAY);
 			g.drawString("Solution cost: " + solutionCost, 10, 20);
 		}
-		
+
 	}
-	
+
 	public void setState(String state){
 		this.state = state;
-		repaint();		
+		repaint();
 	}
 
 	public void setShowSolutionCost(boolean showSolutionCost) {
