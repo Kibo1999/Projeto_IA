@@ -20,6 +20,7 @@ public class MummyMazeState extends State implements Cloneable{
                 switch(matrix[i][j]) {
                     case 'H' :
                         hero = new Cell(i,j);
+                        this.matrix[i][j] = matrix[i][j];
                         break;
                     case 'M' :
                         enemies.add(new Cell(i,j));
@@ -155,7 +156,7 @@ public class MummyMazeState extends State implements Cloneable{
 
         for (char[] line : matrix) {
             for (char letter : line) {
-                stateString += letter + " ";
+                stateString += (letter);// + " ";
             }
             stateString += "\n";
         }

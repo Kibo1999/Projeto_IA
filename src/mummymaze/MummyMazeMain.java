@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MummyMazeMain {
+    //private static String FILE_PATH = "./Niveis/nivel_so_com_heroi.txt";
     private static String FILE_PATH = "./Niveis/nivel_so_com_heroi_e_paredes.txt";
 
     public static void main(String[] args) throws IOException {

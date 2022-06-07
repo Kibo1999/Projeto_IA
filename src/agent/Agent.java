@@ -37,7 +37,9 @@ public class Agent<E extends State> {
             problem.setHeuristic(heuristic);
             heuristic.setProblem(problem);
         }
+        System.out.println("antes");
         solution = searchMethod.search(problem);
+        System.out.println("depois");
         return solution;
     }
 
